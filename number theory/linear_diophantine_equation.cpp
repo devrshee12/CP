@@ -11,7 +11,7 @@ int gcd(int a, int b)
 	return gcd(b,a%b);
 }
 
-int ex_gcd(int a, int b, int &x, int &y)	
+int ex_gcd(int a, int b, int &x, int &y)//extended euclid algo to find solution of ax + by = gcd(a,b)
 {
 	if(b==0)
 	{
@@ -38,11 +38,11 @@ void solve()
 	int c;
 	cin>>c;
 	int x,y;
-	int ans = ex_gcd(a,b,x,y);
+	int ans = ex_gcd(a,b,x,y);//we got solutions from extended euclid algo
 	// cout<<x<<" "<<y<<endl;
 	// // int x1 = (x*c)/ans;
 	// // int x2 = (y*c)/ans;
-	if(c%ans != 0)//to check whether solution is exist or not
+	if(c%ans != 0)//to check whether solution does exist or not
 	{
 		cout<<"NO SOLUTION"<<endl;
 		return;
