@@ -166,3 +166,177 @@ void matrixsum()
 		}
 	}
 }
+
+
+//COUNT TRIPLE INVERSIONS 
+
+int fen1[100005],fen2[100005];
+int freqright[100005],freqleft[100005];
+
+void update1(int inx, int val)
+{
+	while(inx <= n)
+	{
+		fen1[inx] += val;
+		inx = inx + (inx & ~inx);
+	}
+}
+
+
+void update2(int inx, int val)
+{
+	while(inx <= n)
+	{
+		fen2[inx] += val;
+		inx = inx + (inx & ~inx);
+	}
+}
+
+int sum1(int ind)
+{
+	int s = 0 ;
+	while(ind > 0)
+	{
+		s += fen1[ind];
+		ind = ind - (ind & ~ind);
+	}
+
+	return s;
+}
+
+int sum2(int ind)
+{
+	int s = 0 ;
+	while(ind > 0)
+	{
+		s += fen2[ind];
+		ind = ind - (ind & ~ind);
+	}
+
+	return s;
+}
+
+
+void counttripleinversion()
+{
+	int n;
+	cin>>n;
+	int a[n+1];
+
+	for(int i=1;i<=n;i++)
+	{
+		cin>>a[i];
+		freqright[a[i]]++;
+		update1[a[i],1];
+	}
+
+	int cnt = 0;
+	for (int i = 1; i <= n; i++)
+	{
+		//remove from right wing
+		freqright[a[i]]--;
+		update1[a[i],-1];
+
+		//find range sum 1 to a[i]-1;
+
+		int c1 = sum1(a[i]-1);
+
+		//find range sum of a[i]+1 to n;
+		int c2 = sum2(n) - sum2(a[i]);
+
+		cnt += c1*c2;
+
+		//add from left wing
+
+		freqleft[a[i]]++;
+		update2(a[i],2);
+
+	}
+
+	cout<<cnt<<endl;
+}
+
+
+
+//COORDINATE COMPRESSION Codeforces --> enemy is weak (1900);
+
+void CoordinateCompression(int a[], int n)
+{
+	set<int> st;
+	for(int i=1;i<=n;i++)
+	{
+		st.insert(a[i]);
+	}
+
+	int cnt = 1;
+	map<int, int> m;
+
+	for(auto it : st)
+	{
+		m[it] = cnt;
+		cnt++;
+	}
+
+	for(int i=1;i<=n;i++)
+	{
+		a[i] = m[a[i]];
+	}
+}
+
+
+void counttripleinversion()
+{
+	int n;
+	cin>>n;
+	int a[n+1];
+
+	for(int i=1;i<=n;i++)
+	{
+		cin>>a[i];
+	}
+
+	CoordinateCompression(a, n);
+	for(int i=1;i<=n;i++)
+	{
+		freqright[a[i]]++;
+		update1(a[i],1);
+	}
+
+	int cnt = 0;
+	for (int i = 1; i <= n; i++)
+	{
+		//remove from right wing
+		freqright[a[i]]--;
+		update1[a[i],-1];
+
+		//find range sum 1 to a[i]-1;
+
+		int c1 = sum1(a[i]-1);
+
+		//find range sum of a[i]+1 to n;
+		int c2 = sum2(n) - sum2(a[i]);
+
+		cnt += c1*c2;
+
+		//add from left wing
+
+		freqleft[a[i]]++;
+		update2(a[i],2);
+
+	}
+
+	cout<<cnt<<endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
