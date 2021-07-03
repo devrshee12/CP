@@ -5,14 +5,14 @@ using namespace std;
 #define maxi 3E5+5
 #define vi vector<ll>
 #define vint vector<int>
-int a[100005],seg[4*100004];
+ll a[200005],seg[4*200005];
 
 //problem link : https://cses.fi/problemset/task/1646
 
 //using segment tree
 //we can do this using prefix sum
 
-void build(int ind, int low, int high)
+void build(ll ind, ll low, ll high)
 {
 	//leaf node
 	if(low == high)
@@ -21,14 +21,14 @@ void build(int ind, int low, int high)
 		return;
 	}
 
-	int mid = (low+high) >> 1;
+	ll mid = low + (high - low)/2;
 	build(2*ind + 1, low, mid);
 	build(2*ind + 2, mid+1, high);
 	seg[ind] = seg[2*ind + 1] + seg[2*ind + 2];//sumation segment tree;
 
 }
 
-int range(int ind, int low, int high, int l, int r)
+ll range(ll ind, ll low, ll high, ll l, ll r)
 {
 	//compelete overlap
 	if(low >= l && high <= r){
@@ -40,9 +40,9 @@ int range(int ind, int low, int high, int l, int r)
 		return 0;
 	}
 	//for partial ovelap
-	int mid = (low+high) >> 1;
-	int left = range(2*ind + 1, low, mid,l,r);
-	int right = range(2*ind + 2, mid+1, high, l, r);
+	ll mid = low + (high - low)/2;
+	ll left = range(2*ind + 1, low, mid,l,r);
+	ll right = range(2*ind + 2, mid+1, high, l, r);
 
 	return left+right;
 
@@ -51,11 +51,11 @@ int range(int ind, int low, int high, int l, int r)
 
 int main()
 {
-	int n;
+	ll n;
 	cin>>n;
-	int q;
+	ll q;
 	cin>>q;
-	for(int i=0;i<n;i++){
+	for(ll i=0;i<n;i++){
 		cin>>a[i];
 	}
 
@@ -68,7 +68,7 @@ int main()
 
 	while(q--)
 	{
-		int l,r;
+		ll l,r;
 		cin>>l>>r;
 		
 		cout<<range(0,0,n-1,l-1,r-1)<<endl;
