@@ -8,6 +8,7 @@ using namespace std;
 ll a[100005];
 ll seg[4*100005];
 
+//problem link : https://www.geeksforgeeks.org/queries-to-count-array-elements-from-a-given-range-having-a-single-set-bit-2/
 
 // problem statement :
 
