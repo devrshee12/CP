@@ -13,12 +13,12 @@ void dfs(int node, int parent, vector<int> &vis, vint &tin, vint &low, int &time
 	tin[node] = low[node] = timer;
 	timer++;
 
-	int child = 0;
+	int child = 0;// for source node 
 	for(auto it : adj[node])
 	{
 		if(it == parent)
 		{
-
+			continue;
 		}
 
 
@@ -40,11 +40,15 @@ void dfs(int node, int parent, vector<int> &vis, vint &tin, vint &low, int &time
 			low[node] = min(low[node], tin[it]);
 
 		}
-		if(parent == -1 && child > 1)//only case for source node 
-		{
-			isarticulation[node] = 1;
-		}
+		
 	}
+	
+	if(parent == -1 && child > 1)//only case for source
+	{
+		isarticulation[node] = 1;
+		
+	}
+	
 }
 
 
