@@ -3,7 +3,7 @@
 class Solution {
 public:
     
-    // maximum sum of longest increasing subsequence (here O(n^2))
+    // maximum sum of longest increasing subsequence (here O(n^2)) -> (O(nlogn) using binary indexed tree)
     // great lis question 
     
     
