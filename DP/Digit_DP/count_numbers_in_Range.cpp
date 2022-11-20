@@ -35,7 +35,7 @@ int f(string &s, int n, int x, bool tight){
         return 0;
     }
     if(n == 0){
-        return 0;
+        return 1;
     }
 
     if(dp[n][x][tight] != -1){
